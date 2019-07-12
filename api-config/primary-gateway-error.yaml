@@ -1,0 +1,39 @@
+apiVersion: log.alibabacloud.com/v1alpha1
+kind: AliyunLogConfig
+metadata:
+  # 配置名，全局唯一，建议：服务名-日志等级
+  name: primary-gateway-error
+spec:
+  # 阿里 logstore 名称
+  logstore: primary-gateway-error
+  # logtail 详细配置
+  logtailConfig:
+    # 采集的输入类型，一般为file或plugin，容器内文件用file
+    inputType: file
+    # 采集配置名，需要和资源名(metadata.name)一致
+    configName: primary-gateway-error
+    inputDetail:
+      # 对于正则类型的日志，将logType设置为common_reg_log
+      logType: common_reg_log
+      # 日志文件夹
+      logPath: /app/logs
+      # 文件名, 支持通配符，例如log_*.log
+      filePattern: primary.error.log
+      # 行首正则表达式，用于多行合并
+      # logBeginRegex: '\[\d+-\d+-\w+:\d+:\d+,\d+]\s\[\w+]\s.*'
+      logBeginRegex: '\d+\/\d+\/\d+\s+\w+:\d+:\d+\s\[\w+]\s.*'
+      # 解析正则
+      # 匹配两项：1、等级；2、内容
+      # regex: '.*\[(\w+)]\s+\d+#\d+:\s+(.*)'
+      # 匹配三项：1、时间；2、等级；3、内容
+      regex: '(\d+\/\d+\/\d+\s+\w+:\d+:\d+)\s+\[(\w+)]\s+\d+#\d+:\s+(.*)'
+
+      # 提取出的key列表
+      key : ["time", "level", "message"]
+      # 正则模式日志，时间解析默认从日志中的`time`提取，如果无需提取时间，可不设置该字段
+      timeFormat: '%Y/%m/%d %H:%M:%S'
+      # 采集容器内的文件，dockerFile flag设置为true
+      dockerFile: true
+      # 仅收集env config中包含ALIYUN_LOGTAIL_USER_DEFINED_ID"的容器日志文件
+      #dockerIncludeEnv:
+      #  ALIYUN_LOGTAIL_USER_DEFINED_ID: ""

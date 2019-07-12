@@ -1,0 +1,19 @@
+apiVersion: log.alibabacloud.com/v1alpha1
+kind: AliyunLogConfig
+metadata:
+  name: tsp-device-core-error
+spec:
+  logstore: tsp-device-core-error
+  # logtail config detail
+  logtailConfig:
+    inputType: file
+    # logtail config name, should be same with [metadata.name]
+    configName: tsp-device-core-error
+    inputDetail:
+      logType: common_reg_log
+      logPath: /app/logs/tsp-device-core/
+      filePattern: error.tsp-device-core.*.log
+      dockerFile: true
+      # only collect container with "ALIYUN_LOGTAIL_USER_DEFINED_ID" in docker env config
+      #dockerIncludeEnv:
+      #  ALIYUN_LOGTAIL_USER_DEFINED_ID: ""

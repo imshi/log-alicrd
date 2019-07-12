@@ -1,0 +1,23 @@
+apiVersion: log.alibabacloud.com/v1alpha1
+kind: AliyunLogConfig
+metadata:
+  name: primary-gateway-access
+spec:
+  logstore: primary-gateway-access
+  # logtail config detail
+  logtailConfig:
+    inputType: file
+    # logtail config name, should be same with [metadata.name]
+    configName: primary-gateway-access
+    inputDetail:
+      # 极简模式日志，logType设置为"common_reg_log"
+      logType: common_reg_log
+      # 日志文件夹
+      logPath: /app/logs
+      # 文件名, 支持通配符，例如log_*.log
+      filePattern: primary.access.log
+      # 采集容器内的文件，dockerFile flag设置为true
+      dockerFile: true
+      # only collect container with "ALIYUN_LOGTAIL_USER_DEFINED_ID" in docker env config
+      #dockerIncludeEnv:
+      #  ALIYUN_LOGTAIL_USER_DEFINED_ID: ""

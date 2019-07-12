@@ -1,0 +1,20 @@
+## 正则日志示例：
+t=2018-03-09T07:14:03+0000 lvl=info msg="Request Completed" logger=context userId=0 orgId=0 uname= method=GET path=/ status=302 remote_addr=172.16.64.154 time_ms=0 size=29 referer=
+
+## 一级网关error日志示例：
+2018/06/13 15:52:10 [error] 6#6: *69894 upstream timed out (110: Connection timed out) while connecting to upstream, up
+stream: "http://10.160.5.196:10267/secondary/health", host: "api.ecarxtech.com"
+2018/06/14 10:46:24 [error] 5#5: unexpected response for secondary.beta.ecarxtech.com
+
+## 一级网关info日志示例：
+- - - - 10.28.0.1 - [13/Jun/2018:16:17:01 +0800] - "POST api.ecarxtech.com /api/v1/user" - testing - http://secondary.beta.ecarxtech.com - 500 - 1500 - 0.895
+ - - - 10.28.0.1 - [12/Jun/2018:10:09:25 +0800] - "GET api.ecarxtech.com /api/v1/vehicle/" - testing - http://secondary.beta.ecarxtech.com - 400 - 1402 - 10.364
+
+
+## java日志：
+2018-06-15 19:41:52.982  [main] ERROR [com.alibaba.dubbo.common.logger.Logger] [90] -> -  [DUBBO] Failed to init remote service reference at filed tboxReadService in class com.ecarx.admin.device.call.EaiEsbTboxClient
+2018-06-15 19:41:48.158  [DubboZkclientConnector] INFO  [org.apache.zookeeper.ZooKeeper] [100] -> - Client environment:zookeeper.version=3.4.6-1569965
+
+## java日志2：
+2018-06-19 11:31:42.971---[DubboMonitorSendTimer-thread-2]---INFO ---[com.alibaba.dubbo.monitor.dubbo.DubboMonitor]---[58]--- [DUBBO] Send statistics
+2018-06-19 11:31:42.971---[DubboMonitorSendTimer-thread-2]---ERROR---[com.alibaba.dubbo.monitor.dubbo.DubboMonitor]---[58]--- [DUBBO] Send statistics

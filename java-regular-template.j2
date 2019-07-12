@@ -1,0 +1,36 @@
+apiVersion: log.alibabacloud.com/v1alpha1
+kind: AliyunLogConfig
+metadata:
+  ### configration name,unique;Suggest: service_name-level
+  name: {{ name }}-{{ level }}
+spec:
+  ### ali logstore name
+  logstore: {{ name }}-{{ level }}
+  ### logtail configuration detail
+  logtailConfig:
+    ### always set to file or plugin, set to "file" for files in docker 
+    inputType: file
+    ### collect name, must be same to metadata.name
+    configName: {{ name }}-{{ level }}
+    inputDetail:
+      ### set to common_reg_log for regular
+      logType: common_reg_log
+      ### log dir 
+      logPath: /app/logs/{{ name }}
+      ### log file name, support wildcards, such as: log_*.log
+      filePattern: {{ level }}.{{ name }}.*.log
+      ### Regular in top of line,use for Multiline merger
+      # logBeginRegex: '\d+-\d+-\d+.*:\d+.\d+\s+\[.*?\]\s+\w+\s+.*'
+      logBeginRegex: '\d+-\d+-\d+\s+\d+:\d+:\d+.*'
+      ### resolve regular
+      ### two field: time content
+      regex: '(\d+-\d+-\d+\s+\d+:\d+:\d+.\d+).*?(.*)'
+      ### keys list
+      key : ["etime", "message"]
+      ### use for format time, if there is not a field named time, need not to set
+      #timeFormat: '%Y/%m/%d %H:%M:%S'
+      ### is dockerFile or not
+      dockerFile: true
+      ### only collect files with "ALIYUN_LOGTAIL_USER_DEFINED_ID" in env config
+      #dockerIncludeEnv:
+      #  ALIYUN_LOGTAIL_USER_DEFINED_ID: ""

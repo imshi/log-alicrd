@@ -1,0 +1,19 @@
+apiVersion: log.alibabacloud.com/v1alpha1
+kind: AliyunLogConfig
+metadata:
+  name: {{ name }}-{{ level }}
+spec:
+  logstore: {{ name }}-{{ level }}
+  # logtail config detail
+  logtailConfig:
+    inputType: file
+    # logtail config name, should be same with [metadata.name]
+    configName: {{ name }}-{{ level }}
+    inputDetail:
+      logType: common_reg_log
+      logPath: /app/logs/{{ name }}/
+      filePattern: {{ level }}.{{ name }}.*.log
+      dockerFile: true
+      # only collect container with "ALIYUN_LOGTAIL_USER_DEFINED_ID" in docker env config
+      #dockerIncludeEnv:
+      #  ALIYUN_LOGTAIL_USER_DEFINED_ID: ""
