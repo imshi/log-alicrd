@@ -17,8 +17,8 @@
 
 - **使用**:
     - 添加配置：
-    极简模式逐行采集：`python add_simple_log.py ServiceName Level`
-    全局正则多行合并：`python add_regular_log.py ServiceName Level`
+        - 极简模式逐行采集：`python add_simple_log.py ServiceName Level`
+        - 全局正则多行合并：`python add_regular_log.py ServiceName Level`
     - 查询配置：
     `kubectl get aliyunlogconfigs`
     - 删除配置：
